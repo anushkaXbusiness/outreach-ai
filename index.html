@@ -2,710 +2,459 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OutreachAI — Cold Outreach Writer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OutreachAI — Write Cold Messages in Seconds</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --surface2: #17171f;
-      --border: rgba(255,255,255,0.08);
-      --border-hover: rgba(255,255,255,0.16);
-      --accent: #7c5cfc;
-      --accent-soft: rgba(124,92,252,0.12);
-      --accent-glow: rgba(124,92,252,0.3);
-      --text: #f0f0f8;
-      --text-muted: #8888aa;
-      --text-faint: #4a4a66;
-      --whatsapp: #25d366;
-      --whatsapp-soft: rgba(37,211,102,0.1);
-      --email: #4f8ef7;
-      --email-soft: rgba(79,142,247,0.1);
-      --linkedin: #0a66c2;
-      --linkedin-soft: rgba(10,102,194,0.1);
-      --success: #22c55e;
-      --radius: 14px;
-      --radius-sm: 8px;
+      --bg: #0d0f14;
+      --surface: #161a23;
+      --surface2: #1e2330;
+      --border: #2a2f3d;
+      --accent: #6c63ff;
+      --accent-glow: rgba(108,99,255,0.18);
+      --accent2: #00d4aa;
+      --text: #f0f2f8;
+      --muted: #8891a8;
+      --success: #00d4aa;
+      --wa: #25D366;
+      --email: #6c63ff;
+      --li: #0A66C2;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
       min-height: 100vh;
+      line-height: 1.6;
     }
 
     /* NAV */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,10,15,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,15,20,0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-
-    .nav-logo {
-      font-family: 'Sora', sans-serif;
-      font-size: 18px;
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--text);
       display: flex;
       align-items: center;
       gap: 8px;
     }
-
-    .nav-logo span {
+    .logo span { color: var(--accent); }
+    .badge {
+      font-size: 0.65rem;
+      background: var(--accent-glow);
       color: var(--accent);
-    }
-
-    .nav-badge {
-      font-size: 11px;
-      font-weight: 500;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid rgba(124,92,252,0.3);
-      padding: 3px 10px;
+      border: 1px solid var(--accent);
+      padding: 2px 8px;
       border-radius: 20px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
     }
 
     /* HERO */
     .hero {
       text-align: center;
-      padding: 80px 2rem 60px;
+      padding: 64px 20px 48px;
       max-width: 680px;
       margin: 0 auto;
     }
-
-    .hero-eyebrow {
+    .hero-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--accent);
+      font-size: 0.75rem;
+      color: var(--accent2);
+      background: rgba(0,212,170,0.1);
+      border: 1px solid rgba(0,212,170,0.25);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* MAIN LAYOUT */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       margin-bottom: 20px;
     }
 
-    .hero-eyebrow::before {
-      content: '';
-      width: 20px;
-      height: 1px;
-      background: var(--accent);
-    }
-    .hero-eyebrow::after {
-      content: '';
-      width: 20px;
-      height: 1px;
-      background: var(--accent);
-    }
-
-    .hero h1 {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    .hero p {
-      font-size: 16px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    /* MAIN CARD */
-    .main-container {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 0 1.5rem 80px;
-    }
-
-    .form-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 36px;
-      margin-bottom: 28px;
-    }
-
-    .form-card h2 {
-      font-family: 'Sora', sans-serif;
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 28px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .form-card h2 .step-num {
-      width: 26px;
-      height: 26px;
-      background: var(--accent-soft);
-      border: 1px solid rgba(124,92,252,0.3);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .field-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    @media (max-width: 580px) {
-      .field-group { grid-template-columns: 1fr; }
-      .form-card { padding: 24px 20px; }
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .field.full { grid-column: 1 / -1; }
-
+    /* FORM */
+    .field { margin-bottom: 20px; }
     label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 7px;
+      letter-spacing: 0.03em;
     }
-
     input, textarea, select {
       width: 100%;
       background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
+      border-radius: 10px;
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      padding: 12px 16px;
+      font-size: 0.92rem;
+      padding: 11px 14px;
       outline: none;
-      transition: border-color 0.2s;
-      appearance: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none;
     }
-
-    input::placeholder, textarea::placeholder {
-      color: var(--text-faint);
-    }
-
     input:focus, textarea:focus, select:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--accent-glow);
     }
-
-    textarea {
-      resize: vertical;
-      min-height: 90px;
-      line-height: 1.6;
-    }
-
-    select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%238888aa' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-      cursor: pointer;
-    }
-
-    select option {
-      background: #17171f;
-    }
+    input::placeholder, textarea::placeholder { color: #4a5168; }
 
     /* TONE PILLS */
-    .tone-pills {
+    .tones {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
-
     .tone-pill {
-      padding: 7px 16px;
+      padding: 6px 14px;
       border-radius: 20px;
       border: 1px solid var(--border);
       background: var(--surface2);
-      color: var(--text-muted);
-      font-size: 13px;
+      color: var(--muted);
+      font-size: 0.8rem;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.18s;
       user-select: none;
     }
-
-    .tone-pill:hover {
-      border-color: var(--border-hover);
-      color: var(--text);
-    }
-
+    .tone-pill:hover { border-color: var(--accent); color: var(--text); }
     .tone-pill.active {
-      background: var(--accent-soft);
-      border-color: rgba(124,92,252,0.5);
-      color: var(--accent);
-    }
-
-    /* CHANNEL CHECKBOXES */
-    .channel-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 480px) {
-      .channel-grid { grid-template-columns: 1fr; }
-    }
-
-    .channel-item {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 14px;
-      cursor: pointer;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      user-select: none;
-    }
-
-    .channel-item:hover { border-color: var(--border-hover); }
-
-    .channel-item.active[data-ch="whatsapp"] {
-      background: var(--whatsapp-soft);
-      border-color: rgba(37,211,102,0.4);
-    }
-    .channel-item.active[data-ch="email"] {
-      background: var(--email-soft);
-      border-color: rgba(79,142,247,0.4);
-    }
-    .channel-item.active[data-ch="linkedin"] {
-      background: var(--linkedin-soft);
-      border-color: rgba(10,102,194,0.4);
-    }
-
-    .channel-dot {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border: 2px solid var(--border-hover);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-    }
-
-    .channel-item.active .channel-dot {
-      border-color: currentColor;
-    }
-
-    .channel-item.active[data-ch="whatsapp"] .channel-dot { color: var(--whatsapp); background: var(--whatsapp); }
-    .channel-item.active[data-ch="email"] .channel-dot { color: var(--email); background: var(--email); }
-    .channel-item.active[data-ch="linkedin"] .channel-dot { color: var(--linkedin); background: var(--linkedin); }
-
-    .channel-check {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: white;
-      display: none;
-    }
-
-    .channel-item.active .channel-check { display: block; }
-
-    .channel-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-
-    .channel-item.active[data-ch="whatsapp"] .channel-label { color: var(--whatsapp); }
-    .channel-item.active[data-ch="email"] .channel-label { color: var(--email); }
-    .channel-item.active[data-ch="linkedin"] .channel-label { color: var(--linkedin); }
-
-    /* GENERATE BUTTON */
-    .generate-btn {
-      width: 100%;
-      padding: 16px;
       background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-family: 'Sora', sans-serif;
-      font-size: 16px;
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* CHANNELS */
+    .channels { display: flex; gap: 10px; }
+    .channel-toggle {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 8px;
+      text-align: center;
+      transition: all 0.18s;
+      user-select: none;
     }
+    .channel-toggle.wa.active  { background: rgba(37,211,102,0.12); border-color: var(--wa); color: var(--wa); }
+    .channel-toggle.em.active  { background: rgba(108,99,255,0.12); border-color: var(--email); color: var(--email); }
+    .channel-toggle.li.active  { background: rgba(10,102,194,0.12); border-color: var(--li); color: var(--li); }
 
-    .generate-btn:hover:not(:disabled) {
-      background: #6b4de6;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px var(--accent-glow);
-    }
-
-    .generate-btn:active:not(:disabled) { transform: translateY(0); }
-
-    .generate-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .btn-spinner {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      display: none;
-    }
-
-    .generate-btn.loading .btn-spinner { display: block; }
-    .generate-btn.loading .btn-text { display: none; }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ERROR */
-    .error-msg {
-      background: rgba(226,75,74,0.1);
-      border: 1px solid rgba(226,75,74,0.3);
-      border-radius: var(--radius-sm);
-      color: #f87171;
-      padding: 14px 16px;
-      font-size: 13px;
-      margin-top: 16px;
-      display: none;
-    }
-
-    /* RESULTS */
-    .results-section {
-      display: none;
-    }
-
-    .results-section.visible { display: block; }
-
-    .results-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .results-header h2 {
-      font-family: 'Sora', sans-serif;
-      font-size: 20px;
+    /* GENERATE BTN */
+    .generate-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
       font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      margin-top: 8px;
+      box-shadow: 0 4px 20px rgba(108,99,255,0.35);
     }
+    .generate-btn:hover:not(:disabled) {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 28px rgba(108,99,255,0.45);
+    }
+    .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    .regenerate-btn {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-      background: var(--surface);
+    /* PRESETS */
+    .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .preset-btn {
+      font-size: 0.73rem;
+      padding: 5px 11px;
+      border-radius: 8px;
       border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 7px 14px;
+      background: transparent;
+      color: var(--muted);
       cursor: pointer;
       transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
+    .preset-btn:hover { border-color: var(--accent2); color: var(--accent2); }
 
-    .regenerate-btn:hover {
-      color: var(--text);
-      border-color: var(--border-hover);
+    /* OUTPUT AREA */
+    .output-area { display: flex; flex-direction: column; gap: 20px; }
+
+    .empty-state {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      padding: 60px 30px;
+      text-align: center;
+      color: var(--muted);
     }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 14px; opacity: 0.5; }
+    .empty-state h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .empty-state p { font-size: 0.85rem; }
 
-    /* OUTPUT CARDS */
-    .output-card {
+    /* MESSAGE CARD */
+    .msg-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      margin-bottom: 16px;
+      border-radius: 16px;
       overflow: hidden;
+      animation: slideUp 0.35s ease;
     }
-
-    .output-card-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .msg-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
     }
-
-    .channel-tag {
+    .msg-channel {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
     }
-
-    .channel-tag .dot {
-      width: 8px;
-      height: 8px;
+    .channel-dot {
+      width: 8px; height: 8px;
       border-radius: 50%;
     }
-
-    .whatsapp-tag .dot { background: var(--whatsapp); }
-    .email-tag .dot { background: var(--email); }
-    .linkedin-tag .dot { background: var(--linkedin); }
-
-    .whatsapp-tag { color: var(--whatsapp); }
-    .email-tag { color: var(--email); }
-    .linkedin-tag { color: var(--linkedin); }
+    .dot-wa  { background: var(--wa); }
+    .dot-em  { background: var(--email); }
+    .dot-li  { background: var(--li); }
 
     .copy-btn {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-muted);
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 5px 12px;
-      cursor: pointer;
-      transition: all 0.15s;
       display: flex;
       align-items: center;
       gap: 5px;
-    }
-
-    .copy-btn:hover { color: var(--text); border-color: var(--border-hover); }
-    .copy-btn.copied { color: var(--success); border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.08); }
-
-    .subject-line {
-      padding: 12px 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
       background: var(--surface2);
-      border-bottom: 1px solid var(--border);
-      font-size: 12px;
-      color: var(--text-muted);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
     }
+    .copy-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+    .copy-btn.copied { border-color: var(--success); color: var(--success); background: rgba(0,212,170,0.08); }
 
-    .subject-line strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .output-body {
-      padding: 20px;
-      font-size: 14px;
-      line-height: 1.75;
-      color: var(--text);
+    .msg-body {
+      padding: 18px 20px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #c8cfe0;
       white-space: pre-wrap;
       word-break: break-word;
     }
 
     /* SKELETON */
-    .skeleton {
-      background: linear-gradient(90deg, var(--surface2) 25%, rgba(255,255,255,0.04) 50%, var(--surface2) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border-radius: 6px;
-      height: 14px;
-      margin-bottom: 10px;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 2rem;
-      text-align: center;
-      color: var(--text-faint);
-      font-size: 13px;
-    }
-
-    footer span {
-      color: var(--accent);
-    }
-
-    /* CHAR COUNTER */
-    .char-count {
-      font-size: 11px;
-      color: var(--text-faint);
-      text-align: right;
-      margin-top: 4px;
-    }
-
-    /* TIPS ROW */
-    .tips-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    .tip-chip {
-      font-size: 12px;
-      color: var(--text-muted);
-      background: var(--surface2);
+    .skeleton-card {
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 4px 12px;
-      cursor: pointer;
-      transition: all 0.15s;
+      border-radius: 16px;
+      padding: 20px;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+    .skel { background: var(--surface2); border-radius: 6px; }
+    .skel-h { height: 14px; margin-bottom: 10px; }
+    .skel-p { height: 11px; margin-bottom: 8px; }
+
+    /* ERROR */
+    .error-box {
+      background: rgba(255,80,80,0.08);
+      border: 1px solid rgba(255,80,80,0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: #ff6b6b;
+      font-size: 0.85rem;
     }
 
-    .tip-chip:hover {
-      color: var(--text);
-      border-color: var(--border-hover);
+    /* API KEY notice */
+    .api-notice {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 10px;
+      text-align: center;
+    }
+    .api-notice a { color: var(--accent); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      nav { padding: 14px 18px; }
+      .container { grid-template-columns: 1fr; }
+      .hero { padding: 40px 16px 32px; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">Outreach<span>AI</span></div>
-  <div class="nav-badge">Powered by Gemini</div>
+  <div class="logo">Outreach<span>AI</span> <span class="badge">GEMINI</span></div>
+  <div style="font-size:0.78rem;color:var(--muted);">Powered by Gemini 1.5 Flash</div>
 </nav>
 
 <div class="hero">
-  <div class="hero-eyebrow">AI-powered cold outreach</div>
-  <h1>Write outreach that<br><em>actually gets replies</em></h1>
-  <p>Tell us who you're reaching and what you offer. Get personalized messages for WhatsApp, Email, and LinkedIn in seconds.</p>
+  <div class="hero-tag">⚡ AI-Powered Cold Outreach</div>
+  <h1>Write cold messages<br>that <em>actually get replies</em></h1>
+  <p>Fill three fields. Hit generate. Get ready-to-send messages for WhatsApp, Email & LinkedIn.</p>
 </div>
 
-<div class="main-container">
+<div class="container">
 
-  <!-- FORM -->
-  <div class="form-card">
-    <h2><span class="step-num">1</span> Tell us about your outreach</h2>
+  <!-- LEFT: FORM -->
+  <div>
+    <div class="card">
+      <div class="card-title">Quick Fill — Try an Example</div>
+      <div class="presets">
+        <button class="preset-btn" onclick="fillPreset('Restaurant owners in Delhi','Social media management','Friendly')">🍽️ Restaurant</button>
+        <button class="preset-btn" onclick="fillPreset('E-commerce founders','SEO & content writing','Professional')">🛒 E-commerce</button>
+        <button class="preset-btn" onclick="fillPreset('Real estate agents','Lead generation ads','Bold')">🏠 Real Estate</button>
+        <button class="preset-btn" onclick="fillPreset('Startup founders','Product design & UI','Warm')">🚀 Startups</button>
+      </div>
 
-    <div class="field-group">
       <div class="field">
-        <label>Who are you targeting?</label>
-        <input type="text" id="target" placeholder="e.g. Restaurant owners in Delhi" maxlength="120" oninput="updateChar(this, 'tc')" />
-        <div class="char-count" id="tc">0 / 120</div>
+        <label>WHO ARE YOU TARGETING?</label>
+        <input id="target" type="text" placeholder="e.g. Restaurant owners in Mumbai" />
       </div>
+
       <div class="field">
-        <label>Your service / product</label>
-        <input type="text" id="service" placeholder="e.g. Social media management" maxlength="120" oninput="updateChar(this, 'sc')" />
-        <div class="char-count" id="sc">0 / 120</div>
+        <label>WHAT SERVICE ARE YOU OFFERING?</label>
+        <input id="service" type="text" placeholder="e.g. Social media management" />
       </div>
-    </div>
 
-    <div class="field full" style="margin-bottom:16px">
-      <label>Key benefit / value proposition <span style="color:var(--text-faint);font-size:11px;text-transform:none">(optional but recommended)</span></label>
-      <textarea id="benefit" placeholder="e.g. We helped 3 restaurants in Mumbai increase online orders by 40% in 60 days" maxlength="300" oninput="updateChar(this, 'bc')"></textarea>
-      <div class="char-count" id="bc">0 / 300</div>
-    </div>
-
-    <div class="field full" style="margin-bottom:24px">
-      <label>Tone of message</label>
-      <div class="tone-pills">
-        <div class="tone-pill active" data-tone="Friendly & conversational">Friendly</div>
-        <div class="tone-pill" data-tone="Professional & formal">Professional</div>
-        <div class="tone-pill" data-tone="Bold & direct">Bold</div>
-        <div class="tone-pill" data-tone="Warm & empathetic">Warm</div>
-        <div class="tone-pill" data-tone="Witty & humorous">Witty</div>
+      <div class="field">
+        <label>YOUR KEY VALUE / RESULT YOU DELIVER</label>
+        <textarea id="value" rows="2" placeholder="e.g. We help restaurants get 3x more orders from Instagram in 30 days"></textarea>
       </div>
-    </div>
 
-    <div class="field full" style="margin-bottom:24px">
-      <label>Generate messages for</label>
-      <div class="channel-grid">
-        <div class="channel-item active" data-ch="whatsapp" onclick="toggleChannel(this)">
-          <div class="channel-dot"><div class="channel-check"></div></div>
-          <div class="channel-label">WhatsApp</div>
-        </div>
-        <div class="channel-item active" data-ch="email" onclick="toggleChannel(this)">
-          <div class="channel-dot"><div class="channel-check"></div></div>
-          <div class="channel-label">Email</div>
-        </div>
-        <div class="channel-item active" data-ch="linkedin" onclick="toggleChannel(this)">
-          <div class="channel-dot"><div class="channel-check"></div></div>
-          <div class="channel-label">LinkedIn</div>
+      <div class="field">
+        <label>TONE</label>
+        <div class="tones" id="tones">
+          <div class="tone-pill active" data-tone="Friendly">😊 Friendly</div>
+          <div class="tone-pill" data-tone="Professional">💼 Professional</div>
+          <div class="tone-pill" data-tone="Bold">🔥 Bold</div>
+          <div class="tone-pill" data-tone="Warm">🤝 Warm</div>
+          <div class="tone-pill" data-tone="Witty">😄 Witty</div>
         </div>
       </div>
-    </div>
 
-    <button class="generate-btn" id="genBtn" onclick="generateOutreach()">
-      <div class="btn-spinner"></div>
-      <span class="btn-text">✦ Generate outreach messages</span>
-    </button>
+      <div class="field">
+        <label>CHANNELS TO GENERATE</label>
+        <div class="channels">
+          <div class="channel-toggle wa active" data-ch="whatsapp">💬 WhatsApp</div>
+          <div class="channel-toggle em active" data-ch="email">✉️ Email</div>
+          <div class="channel-toggle li active" data-ch="linkedin">💼 LinkedIn</div>
+        </div>
+      </div>
 
-    <div class="error-msg" id="errorMsg"></div>
+      <div class="field" style="margin-bottom:4px;">
+        <label>YOUR GEMINI API KEY</label>
+        <input id="apikey" type="password" placeholder="Paste your Gemini API key here" />
+      </div>
+      <p class="api-notice">Get a free key at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a></p>
 
-    <div class="tips-row" id="tipsRow">
-      <div class="tip-chip" onclick="fillExample(1)">Try: Restaurant + Social media</div>
-      <div class="tip-chip" onclick="fillExample(2)">Try: Startup + Web design</div>
-      <div class="tip-chip" onclick="fillExample(3)">Try: Coaches + CRM software</div>
+      <button class="generate-btn" id="genBtn" onclick="generate()">✨ Generate Messages</button>
     </div>
   </div>
 
-  <!-- RESULTS -->
-  <div class="results-section" id="resultsSection">
-    <div class="results-header">
-      <h2>Your messages ✦</h2>
-      <button class="regenerate-btn" onclick="generateOutreach()">↻ Regenerate</button>
+  <!-- RIGHT: OUTPUT -->
+  <div class="output-area" id="output">
+    <div class="empty-state">
+      <div class="empty-icon">✍️</div>
+      <h3>Your messages will appear here</h3>
+      <p>Fill in the form and click Generate to create personalized outreach messages instantly.</p>
     </div>
-    <div id="outputCards"></div>
   </div>
 
 </div>
-
-<footer>
-  Built with <span>OutreachAI</span> · Powered by Gemini API
-</footer>
 
 <script>
-  const EXAMPLES = [
-    { target: 'Restaurant owners in Delhi', service: 'Social media management', benefit: 'We helped 3 restaurants in Mumbai increase online orders by 40% in 60 days' },
-    { target: 'Early-stage startups in Bangalore', service: 'Web design and development', benefit: 'We build fast, conversion-focused websites in under 3 weeks' },
-    { target: 'Life coaches and consultants', service: 'CRM and client management software', benefit: 'Save 5+ hours a week by automating client follow-ups and scheduling' },
-  ];
+  let selectedTone = 'Friendly';
+  let activeChannels = new Set(['whatsapp', 'email', 'linkedin']);
 
-  let selectedTone = 'Friendly & conversational';
-  let selectedChannels = new Set(['whatsapp', 'email', 'linkedin']);
-
-  function updateChar(el, id) {
-    document.getElementById(id).textContent = `${el.value.length} / ${el.maxLength}`;
-  }
-
+  // Tone selection
   document.querySelectorAll('.tone-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       document.querySelectorAll('.tone-pill').forEach(p => p.classList.remove('active'));
@@ -714,188 +463,205 @@
     });
   });
 
-  function toggleChannel(el) {
-    const ch = el.dataset.ch;
-    if (el.classList.contains('active') && selectedChannels.size === 1) return;
-    el.classList.toggle('active');
-    if (el.classList.contains('active')) selectedChannels.add(ch);
-    else selectedChannels.delete(ch);
-  }
-
-  function fillExample(n) {
-    const ex = EXAMPLES[n - 1];
-    document.getElementById('target').value = ex.target;
-    document.getElementById('service').value = ex.service;
-    document.getElementById('benefit').value = ex.benefit;
-    ['target', 'service'].forEach(id => updateChar(document.getElementById(id), id === 'target' ? 'tc' : 'sc'));
-    updateChar(document.getElementById('benefit'), 'bc');
-  }
-
-  function showError(msg) {
-    const el = document.getElementById('errorMsg');
-    el.textContent = msg;
-    el.style.display = 'block';
-  }
-
-  function hideError() {
-    document.getElementById('errorMsg').style.display = 'none';
-  }
-
-  function showSkeleton(channels) {
-    const container = document.getElementById('outputCards');
-    container.innerHTML = channels.map(() => `
-      <div class="output-card" style="padding:20px">
-        <div class="skeleton" style="width:30%;height:12px;margin-bottom:16px"></div>
-        <div class="skeleton" style="width:100%"></div>
-        <div class="skeleton" style="width:90%"></div>
-        <div class="skeleton" style="width:95%"></div>
-        <div class="skeleton" style="width:70%"></div>
-      </div>
-    `).join('');
-    document.getElementById('resultsSection').classList.add('visible');
-    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function renderResults(messages) {
-    const container = document.getElementById('outputCards');
-    container.innerHTML = '';
-
-    const channelConfig = {
-      whatsapp: { label: 'WhatsApp', cls: 'whatsapp-tag' },
-      email: { label: 'Email', cls: 'email-tag' },
-      linkedin: { label: 'LinkedIn', cls: 'linkedin-tag' },
-    };
-
-    messages.forEach(msg => {
-      const cfg = channelConfig[msg.channel];
-      const card = document.createElement('div');
-      card.className = 'output-card';
-
-      let subjectHtml = '';
-      if (msg.channel === 'email' && msg.subject) {
-        subjectHtml = `<div class="subject-line">Subject: <strong>${escapeHtml(msg.subject)}</strong></div>`;
-      }
-
-      card.innerHTML = `
-        <div class="output-card-header">
-          <div class="channel-tag ${cfg.cls}">
-            <div class="dot"></div>
-            ${cfg.label}
-          </div>
-          <button class="copy-btn" onclick="copyMsg(this, ${JSON.stringify(msg.body)})">
-            ⎘ Copy
-          </button>
-        </div>
-        ${subjectHtml}
-        <div class="output-body">${escapeHtml(msg.body)}</div>
-      `;
-      container.appendChild(card);
+  // Channel toggles
+  document.querySelectorAll('.channel-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ch = btn.dataset.ch;
+      if (activeChannels.has(ch) && activeChannels.size === 1) return; // keep at least 1
+      btn.classList.toggle('active');
+      activeChannels.has(ch) ? activeChannels.delete(ch) : activeChannels.add(ch);
     });
+  });
+
+  function fillPreset(target, service, tone) {
+    document.getElementById('target').value = target;
+    document.getElementById('service').value = service;
+    document.getElementById('value').value = '';
+    document.querySelectorAll('.tone-pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.tone === tone);
+    });
+    selectedTone = tone;
   }
 
-  function escapeHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  async function copyMsg(btn, text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      btn.classList.add('copied');
-      btn.textContent = '✓ Copied!';
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        btn.innerHTML = '⎘ Copy';
-      }, 2000);
-    } catch(e) {
-      btn.textContent = 'Error';
+  function showSkeletons(count) {
+    const out = document.getElementById('output');
+    out.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+      out.innerHTML += `
+        <div class="skeleton-card">
+          <div class="skel skel-h" style="width:40%"></div>
+          <div class="skel skel-p" style="width:95%"></div>
+          <div class="skel skel-p" style="width:88%"></div>
+          <div class="skel skel-p" style="width:75%"></div>
+          <div class="skel skel-p" style="width:60%"></div>
+        </div>`;
     }
   }
 
-  async function generateOutreach() {
-    const target = document.getElementById('target').value.trim();
+  function renderMessage(channel, content) {
+    const labels = { whatsapp: 'WhatsApp', email: 'Email', linkedin: 'LinkedIn' };
+    const dots   = { whatsapp: 'dot-wa', email: 'dot-em', linkedin: 'dot-li' };
+    const icons  = { whatsapp: '💬', email: '✉️', linkedin: '💼' };
+    const id = `msg-${channel}`;
+
+    return `
+      <div class="msg-card">
+        <div class="msg-header">
+          <div class="msg-channel">
+            <div class="channel-dot ${dots[channel]}"></div>
+            ${icons[channel]} ${labels[channel]}
+          </div>
+          <button class="copy-btn" id="copy-${channel}" onclick="copyMsg('${channel}')">
+            📋 Copy
+          </button>
+        </div>
+        <div class="msg-body" id="${id}">${content}</div>
+      </div>`;
+  }
+
+  async function generate() {
+    const target  = document.getElementById('target').value.trim();
     const service = document.getElementById('service').value.trim();
-    const benefit = document.getElementById('benefit').value.trim();
+    const value   = document.getElementById('value').value.trim();
+    const apiKey  = document.getElementById('apikey').value.trim();
 
-    hideError();
-
-    if (!target) { showError('Please describe who you are targeting.'); return; }
-    if (!service) { showError('Please describe your service or product.'); return; }
-    if (selectedChannels.size === 0) { showError('Please select at least one channel.'); return; }
+    if (!target || !service) {
+      alert('Please fill in at least "Who you are targeting" and "What service you offer".');
+      return;
+    }
+    if (!apiKey) {
+      alert('Please enter your Gemini API key.');
+      return;
+    }
+    if (activeChannels.size === 0) {
+      alert('Please select at least one channel.');
+      return;
+    }
 
     const btn = document.getElementById('genBtn');
-    btn.classList.add('loading');
     btn.disabled = true;
+    btn.textContent = '⏳ Generating...';
+    showSkeletons(activeChannels.size);
 
-    const channelList = [...selectedChannels];
-    showSkeleton(channelList);
+    const channelList = [...activeChannels];
 
     const channelInstructions = {
-      whatsapp: `WhatsApp message: Short (under 120 words), casual, conversational. Start with a personalized hook. End with a simple open-ended question. No formal sign-off. Appropriate for a cold message on WhatsApp.`,
-      email: `Email: Include a compelling subject line on the first line starting with "Subject: ". Then the body: professional, clear, concise (under 150 words). Has a clear call to action. Brief sign-off.`,
-      linkedin: `LinkedIn message: Warm, professional, connection-first tone (under 100 words). Reference their work or role. No hard sell. End with a low-commitment CTA.`,
+      whatsapp: `WHATSAPP MESSAGE:
+- Max 120 words, casual & conversational
+- Start with a personal hook, not "Hi I am..."
+- End with a simple question to start conversation
+- No subject line needed`,
+      email: `EMAIL MESSAGE:
+- Include: Subject: [subject line]
+- Then the email body
+- 150-200 words, professional but approachable
+- Clear CTA at end`,
+      linkedin: `LINKEDIN MESSAGE:
+- Max 100 words, warm & connection-focused
+- Mention something genuine about their work
+- No hard sell, soft CTA`
     };
 
-    const channelPrompts = channelList.map(ch => channelInstructions[ch]).join('\n\n');
+    const sections = channelList.map(ch => channelInstructions[ch]).join('\n\n');
+    const channelNames = channelList.map(c => c.toUpperCase()).join(', ');
 
-    const prompt = `You are an expert cold outreach copywriter. Write personalized outreach messages for the following:
+    const prompt = `You are an expert cold outreach copywriter. Generate personalized outreach messages.
 
 TARGET AUDIENCE: ${target}
-SERVICE / PRODUCT: ${service}
-${benefit ? `KEY VALUE PROPOSITION: ${benefit}` : ''}
+SERVICE OFFERED: ${service}
+VALUE / RESULT: ${value || 'Not specified'}
 TONE: ${selectedTone}
+CHANNELS: ${channelNames}
 
-Write one message for each of the following channels. Be specific, human, and avoid generic filler. Each message should feel tailored — not templated.
+Generate ONLY the following messages (no extra commentary):
 
-${channelPrompts}
+${sections}
 
-Return ONLY a JSON array with no markdown, no code blocks, no explanation. Example format:
-[{"channel":"whatsapp","body":"..."},{"channel":"email","subject":"...","body":"..."},{"channel":"linkedin","body":"..."}]
+---
+Format your response EXACTLY like this (use these exact headers):
+${channelList.includes('whatsapp') ? '=== WHATSAPP ===\n[message here]' : ''}
+${channelList.includes('email') ? '=== EMAIL ===\n[message here]' : ''}
+${channelList.includes('linkedin') ? '=== LINKEDIN ===\n[message here]' : ''}
 
-Only include channels that were requested. Requested channels: ${channelList.join(', ')}`;
-
-    const GEMINI_API_KEY = '';
+Write naturally, avoid sounding robotic. Make it specific to ${target}.`;
 
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { maxOutputTokens: 1000, temperature: 0.8 }
-        }),
-      });
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.85, maxOutputTokens: 1200 }
+          })
+        }
+      );
 
       if (!response.ok) {
         const err = await response.json();
-        throw new Error(err.error?.message || 'API request failed');
+        throw new Error(err?.error?.message || `API error ${response.status}`);
       }
 
       const data = await response.json();
       const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-      let messages;
-      try {
-        const clean = raw.replace(/```json|```/g, '').trim();
-        messages = JSON.parse(clean);
-      } catch {
-        throw new Error('Could not parse the AI response. Please try again.');
+      // Parse sections
+      const out = document.getElementById('output');
+      out.innerHTML = '';
+
+      const parse = (tag) => {
+        const regex = new RegExp(`=== ${tag} ===\\s*([\\s\\S]*?)(?====|$)`);
+        const match = raw.match(regex);
+        return match ? match[1].trim() : null;
+      };
+
+      let rendered = false;
+      for (const ch of channelList) {
+        const tag = ch.toUpperCase();
+        const content = parse(tag);
+        if (content) {
+          out.innerHTML += renderMessage(ch, content);
+          rendered = true;
+        }
       }
 
-      if (!Array.isArray(messages) || messages.length === 0) {
-        throw new Error('No messages were generated. Please try again.');
+      if (!rendered) {
+        // Fallback: show raw
+        out.innerHTML += renderMessage(channelList[0], raw);
       }
-
-      renderResults(messages);
 
     } catch (err) {
-      document.getElementById('outputCards').innerHTML = '';
-      document.getElementById('resultsSection').classList.remove('visible');
-      showError(err.message || 'Something went wrong. Please try again.');
+      document.getElementById('output').innerHTML = `
+        <div class="error-box">
+          <strong>❌ Error:</strong> ${err.message}<br><br>
+          Make sure your Gemini API key is correct and has access to Gemini 1.5 Flash.
+          <br><br>Get a free key at <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--accent)">aistudio.google.com</a>
+        </div>`;
     } finally {
-      btn.classList.remove('loading');
       btn.disabled = false;
+      btn.textContent = '✨ Generate Messages';
     }
   }
+
+  function copyMsg(channel) {
+    const text = document.getElementById(`msg-${channel}`)?.innerText;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById(`copy-${channel}`);
+      btn.textContent = '✅ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '📋 Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Allow Enter key on inputs
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.ctrlKey) generate();
+  });
 </script>
 </body>
 </html>
