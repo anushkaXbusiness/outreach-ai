@@ -263,11 +263,12 @@ Write naturally. Make it specific to ${target}.`;
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${apiKey}`
           },
-          body: JSON.stringify({
-           model: 'llama-3.1-8b-instant'
-            messages: [{ role: 'user', content: prompt }],
-            temperature: 0.85,
-            max_tokens: 1200
+         body: JSON.stringify({
+  model: 'llama-3.1-8b-instant',
+  messages: [{ role: 'user', content: prompt }],
+  temperature: 0.85,
+  max_tokens: 1200
+})
           })
         }
       );
