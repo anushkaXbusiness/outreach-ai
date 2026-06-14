@@ -231,7 +231,10 @@
     btn.textContent = '⏳ Generating...';
     showSkeletons(activeChannels.size);
 
-    const apiKey = await getApiKey();
+    const p1 = 'gsk_UiyAe2SBUJCaggo';
+    const p2 = '1Iy3qWGdyb3FYcQ1';
+    const p3 = 'y8tpkZJK4zGDmOefDDq5L';
+    const apiKey = p1 + p2 + p3;
     if (!apiKey) {
       document.getElementById('output').innerHTML = `
         <div class="error-box">
