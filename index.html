@@ -73,8 +73,8 @@
 <body>
 
 <nav>
-  <div class="logo">Outreach<span>AI</span> <span class="badge">GEMINI</span></div>
-  <div style="font-size:0.78rem;color:var(--muted);">Powered by Gemini Flash</div>
+  <div class="logo">Outreach<span>AI</span> <span class="badge">GROQ</span></div>
+  <div style="font-size:0.78rem;color:var(--muted);">Powered by Groq AI</div>
 </nav>
 
 <div class="hero">
@@ -236,7 +236,7 @@
       document.getElementById('output').innerHTML = `
         <div class="error-box">
           <strong>❌ API key not found.</strong><br><br>
-          Please make sure GEMINI_API_KEY is set in your Vercel environment variables.
+          Please make sure GROQ_API_KEY is set in your Vercel environment variables.
         </div>`;
       btn.disabled = false;
       btn.textContent = '✨ Generate Messages';
@@ -270,7 +270,7 @@ Write naturally. Make it specific to ${target}.`;
 
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -287,7 +287,7 @@ Write naturally. Make it specific to ${target}.`;
       }
 
       const data = await response.json();
-      const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      const raw = data.choices?.[0]?.message?.content || '';
 
       const out = document.getElementById('output');
       out.innerHTML = '';
