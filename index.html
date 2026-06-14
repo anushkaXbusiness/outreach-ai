@@ -255,23 +255,19 @@ ${channelList.includes('whatsapp') ? '=== WHATSAPP ===\n[message here]\n' : ''}$
 Write naturally. Make it specific to ${target}.`;
 
  try {
-  const response = await fetch(
-    'https://api.groq.com/openai/v1/chat/completions',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
-        messages: [{ role: 'user', content: prompt }],
-        temperature: 0.85,
-        max_tokens: 1200
-      })
-    }
-  );
-
+const response = await fetch('/api/generate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+    // No Authorization header here anymore! Your backend handles it now.
+  },
+  body: JSON.stringify({
+    model: 'llama-3.1-8b-instant',
+    messages: [{ role: 'user', content: prompt }],
+    temperature: 0.85,
+    max_tokens: 1200
+  })
+});
       if (!response.ok) {
         const err = await response.json();
         throw new Error(err?.error?.message || `API error ${response.status}`);
